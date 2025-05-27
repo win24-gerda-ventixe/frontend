@@ -882,7 +882,7 @@ form p {
 
 
 
-@media (max-width: 1024px) {
+@media (max-width: 1399px) {
   /* Hide brand name next to logo */
   .logo span {
     display: none;
@@ -920,3 +920,4 @@ form p {
     justify-content: center;
   }
 }
+

@@ -37,7 +37,7 @@ const handleSubmit = async (e) => {
   console.log("JSON stringified:", JSON.stringify(payload));
 
   try {
-    const res = await fetch('https://localhost:7097/api/events', {
+    const res = await fetch('https://ventixe-gerda-webapp.azurewebsites.net/api/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
