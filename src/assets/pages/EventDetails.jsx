@@ -1,11 +1,137 @@
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom'; 
+import BookEventForm from '../components/BookEventForm';
+import Modal from '../components/Modal';
 
 const EventDetails = () => {
-    const { id } = useParams()
+  const { id } = useParams();
+  const navigate = useNavigate(); 
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false); 
 
-  return (
-    <div>EventDetails</div>
-  )
-}
+  const [packages, setPackages] = useState([]);
 
-export default EventDetails
+
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const res = await fetch(`https://localhost:7097/api/events/${id}`);
+        if (!res.ok) throw new Error("Failed to load event");
+
+        const data = await res.json();
+        setEvent(data.result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+
+        const fetchPackages = async () => {
+      try {
+        const res = await fetch(`https://localhost:7097/api/events/${id}/packages`);
+        if (!res.ok) throw new Error("Failed to load packages");
+
+        const data = await res.json();
+        setPackages(data);
+      } catch (err) {
+        console.error("Package fetch error:", err);
+      }
+    };
+
+    fetchEvent();
+  }, [id]);
+
+  if (loading) return <p>Loading event...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!event) return <p>No event found.</p>;
+
+const eventDate = new Date(event.eventDate);
+const eventTime = new Date(event.time);
+
+// Combine the date and time into a single string
+const combinedDateTime = new Date(
+  eventDate.toISOString().split("T")[0] + "T" + eventTime.toTimeString().split(" ")[0]
+);
+
+return (
+  <div className="event-details-container">
+    
+    {/* LEFT COLUMN: Main Event Details */}
+    <div className="event-details-wrapper">
+      <div className="event-banner">
+        {event.image && <img src={event.image} alt={event.title} />}
+        <div className="badges">
+          <span className="badge category">{event.category}</span>
+          <span className={`badge status ${event.status.toLowerCase()}`}>{event.status}</span>
+          <div className="event-image-placeholder" />
+        </div>
+      </div>
+
+      <div className="event-info">
+        <h1>{event.title}</h1>
+      {combinedDateTime && (
+        <p className="event-datetime">
+          <i className="fa-regular fa-calendar"></i>{' '}
+          {combinedDateTime.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}{' '}
+          —{' '}
+          {combinedDateTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}
+        </p>
+      )}
+
+        <div className="event-row">
+          <p className="event-location">
+            <i className="fa-solid fa-location-dot"></i> {event.location}
+          </p>
+          <div className="event-price">${event.price}</div>
+        </div>
+        <hr className="section-divider" />
+        <div className="event-description">
+          <h4>About Event</h4>
+          <p>{event.description}</p>
+        </div>
+
+        <button onClick={() => setShowModal(true)} className="book-event-btn">
+          Book Event
+        </button>
+      </div>
+    </div>
+
+    {/* RIGHT COLUMN: Packages */}
+    <div className="event-packages">
+    <div className="packages-header">
+      <h3>Packages</h3>
+      <i className="fa-solid fa-ellipsis"></i>
+    </div>
+      {packages.length > 0 ? (
+        packages.map(pkg => (
+          <div key={pkg.id} className="package-card">
+            <h4>{pkg.title}</h4>
+            <p>{pkg.seatingArrangment} • {pkg.placement}</p>
+            <p className="price">${pkg.price?.toFixed(2)}</p>
+          </div>
+        ))
+      ) : (
+        <p>No packages available.</p>
+      )}
+    </div>
+
+    {/* Modal */}
+    {showModal && (
+      <Modal onClose={() => setShowModal(false)}>
+        <BookEventForm
+          eventId={id}
+          eventTitle={event.title}
+          onClose={() => setShowModal(false)}
+        />
+      </Modal>
+    )}
+  </div>
+);
+
+};
+
+export default EventDetails;
