@@ -17,7 +17,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const res = await fetch(`https://localhost:7097/api/events/${id}`);
+        const res = await fetch(`https://ventixe-gerda-webapp.azurewebsites.net/api/events/${id}`);
         if (!res.ok) throw new Error("Failed to load event");
 
         const data = await res.json();

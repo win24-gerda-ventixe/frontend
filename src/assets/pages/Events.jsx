@@ -9,7 +9,7 @@ const Events = () => {
     const [showForm, setShowForm] = useState(false);
 
 const getEvents = async () => {
-    const res = await fetch("https://localhost:7097/api/events")
+    const res = await fetch("https://ventixe-gerda-webapp.azurewebsites.net/api/events")
 
     if (res.ok) {
         const data = await res.json()
@@ -19,6 +19,8 @@ const getEvents = async () => {
 useEffect(() => {
     getEvents()
 }, [])
+
+console.log(events)
 
 return (
   <div className="events-page">

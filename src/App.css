@@ -148,6 +148,7 @@
       "nav main"
       "nav footer";
   }
+  
 }
 
 @media (min-width: 1400px) {
@@ -876,4 +877,46 @@ form p {
   font-weight: bold;
   color: var(--primary-100);
   font-size: 1.1rem;
+}
+
+
+
+
+@media (max-width: 1024px) {
+  /* Hide brand name next to logo */
+  .logo span {
+    display: none;
+  }
+
+  /* Hide text labels in sidebar nav */
+  .nav-items span {
+    display: none;
+  }
+
+  /* Hide "Sign Out" text, keep the icon */
+  .signout-button span {
+    display: none;
+  }
+
+  /* Center icon in signout button */
+  .signout-button {
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  /* Optional: center all nav links */
+  .nav-items a {
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  /* Optional: shrink sidebar width */
+  .sidebar {
+    width: 80px;
+    padding: 1rem 0.5rem;
+  }
+
+  .logo {
+    justify-content: center;
+  }
 }
