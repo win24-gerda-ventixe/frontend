@@ -31,7 +31,7 @@ const handleSubmit = async (e) => {
   console.log("JSON stringified:", JSON.stringify(formData));
 
   try {
-    const res = await fetch("https://ventixe-gerda-webapp.azurewebsites.net/api/booking", {
+    const res = await fetch("https://ventixe-gerda-webapp2.azurewebsites.net/api/booking", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
