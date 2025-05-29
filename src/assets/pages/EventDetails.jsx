@@ -13,6 +13,9 @@ const EventDetails = () => {
 
   const [packages, setPackages] = useState([]);
 
+  const isAuthenticated = localStorage.getItem("token") !== null;
+
+
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -94,9 +97,16 @@ return (
           <p>{event.description}</p>
         </div>
 
-        <button onClick={() => setShowModal(true)} className="book-event-btn">
-          Book Event
-        </button>
+        {isAuthenticated ? (
+          <button onClick={() => setShowModal(true)} className="book-event-btn">
+            Book Event
+          </button>
+        ) : (
+          <p className="login-warning">
+            You need to <a href="/login">log in</a> to book this event.
+          </p>
+        )}
+
       </div>
     </div>
 
@@ -120,7 +130,7 @@ return (
     </div>
 
     {/* Modal */}
-    {showModal && (
+    {showModal && isAuthenticated && (
       <Modal onClose={() => setShowModal(false)}>
         <BookEventForm
           eventId={id}

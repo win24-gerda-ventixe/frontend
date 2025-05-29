@@ -23,6 +23,8 @@ const handleChange = (e) => {
   }));
 };
 
+const [success, setSuccess] = useState(false);
+
 const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -38,9 +40,12 @@ const handleSubmit = async (e) => {
     });
 
     if (res.ok) {
-      console.log("Booking successful");
+      setSuccess(true);
+      setTimeout(() => {
+
       if (onClose) onClose();
       navigate('/');
+            }, 2000);
     } else {
       const errorText = await res.text(); 
       console.error("Booking failed. Server response:", errorText);
@@ -53,6 +58,13 @@ const handleSubmit = async (e) => {
 return (
   <div>
     <h1>Book Event – {eventTitle}</h1>
+
+        {success && (
+      <div className="success-message">
+        Booking successful! Redirecting...
+      </div>
+    )}
+
     <form onSubmit={handleSubmit} noValidate>
       <div>
         <label>First Name</label>
