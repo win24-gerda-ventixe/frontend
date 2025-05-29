@@ -10,8 +10,8 @@ export default authApi;
 import axios from 'axios';
 
 const authApi = axios.create({
-  baseURL: 'https://your-auth-service.azurewebsites.net/api',
-  withCredentials: true // keep this if you're using cookies
+  baseURL: 'https://ventixe-gerda-webapp3.azurewebsites.net/api',
+  withCredentials: true 
 });
 
 export default authApi;
