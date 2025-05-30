@@ -23,7 +23,7 @@ const SignUp = () => {
         acceptTerms
       });
 
-      setMessage('✅ Registration successful!');
+      setMessage('Registration successful!');
       // Optional: clear form
       setName('');
       setSurname('');
@@ -35,7 +35,7 @@ const SignUp = () => {
       const errorMsg =
         error.response?.data?.message ||
         error.response?.data ||
-        '❌ Registration failed.';
+        'Registration failed.';
       setMessage(errorMsg);
     }
   };

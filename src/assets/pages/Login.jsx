@@ -1,4 +1,24 @@
 import { useState } from 'react';
+import { login } from '../auth';
+import { useNavigate } from 'react-router-dom';
+
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(email, password, rememberMe);
+      navigate('/dashboard');
+    } catch (err) {
+      alert('Login failed');
+      console.error(err);
+    }
+  };
+/*import { useState } from 'react';
 import authApi from '../../api'; 
 
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +44,7 @@ export default function Login() {
     }
   };
 */
-    const response = await authApi.post('/auth/login', {
+ /*   const response = await authApi.post('/auth/login', {
       email,
       password,
       rememberMe,
@@ -40,7 +60,7 @@ export default function Login() {
   } catch (err) {
     alert('Login failed');
   }
-};
+};*/
   return (
     <form onSubmit={handleLogin}>
       <h2>Login</h2>

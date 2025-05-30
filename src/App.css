@@ -160,6 +160,9 @@
       "nav main"
       "nav footer";
   }
+    .logo-mobile {
+    display: none;
+    }
 }
 
 nav {
@@ -882,12 +885,14 @@ form p {
 
 
 
-@media (max-width: 1399px) {
+@media (min-width: 768px) and (max-width: 1399px) {
   /* Hide brand name next to logo */
   .logo span {
     display: none;
   }
-
+  .logo-mobile {
+  display: none;
+  }
   /* Hide text labels in sidebar nav */
   .nav-items span {
     display: none;
@@ -931,4 +936,110 @@ form p {
   margin-bottom: 1rem;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hide hamburger by default */
+.hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+/* ----------- (Mobile) ----------- */
+@media (max-width: 767px) {
+  /* Sidebar */
+  nav.sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: var(--nav-background-color);
+    padding: 1.5rem;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  nav.sidebar.active {
+    display: block;
+    transform: translateX(0);
+  }
+
+  /* Layout grid areas */
+  .portal-wrapper {
+    grid-template-areas: 
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+
+  /* Header adjustments */
+  
+  .header-right,
+  .breadcrumb,
+  .header-right .user-info {
+    display: none;
+  }
+.header {
+  display: flex;
+  align-items: center; /* Vertical alignment */
+  justify-content: center; /* Center all content horizontally */
+  position: relative;
+  padding: 0.75rem 1rem;
+  background-color: var(--cool-gray-10);
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  height: 56px; /* optional for consistent vertical alignment */
+}
+
+.logo-mobile {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 32px;
+}
+
+.header-logo img {
+  height: 32px;
+}
+
+/* Center (title) */
+.page-title {
+  font-size: 1.25rem;
+  margin: 0;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Right (hamburger) */
+.hamburger-menu {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  display: block;
+}
+
+  .main-content {
+    width: 366px;
+  }
+    .footer {
+    width: 366px;
+  }
+  .search-controls{
+    display: none;
+  }
+
+  
 }

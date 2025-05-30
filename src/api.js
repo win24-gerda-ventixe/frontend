@@ -11,7 +11,9 @@ import axios from 'axios';
 
 const authApi = axios.create({
   baseURL: 'https://ventixe-gerda-webapp3.azurewebsites.net/api',
-  withCredentials: true 
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
 export default authApi;
