@@ -1,4 +1,4 @@
-/*import jwtDecode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 export const isLoggedIn = () => {
   const token = localStorage.getItem('token');
@@ -26,23 +26,4 @@ export const getUser = () => {
   } catch {
     return null;
   }
-};
-*/
-import authApi from './api';
-
-export const login = async (email, password, rememberMe) => {
-  const response = await authApi.post('/auth/login', {
-    email,
-    password,
-    rememberMe
-  });
-
-  const { token } = response.data;
-  localStorage.setItem('token', token); // save token
-  return token;
-};
-
-export const signup = async (formData) => {
-  const response = await authApi.post('/auth/register', formData);
-  return response.data;
 };

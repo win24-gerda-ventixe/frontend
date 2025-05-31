@@ -1,24 +1,4 @@
 import { useState } from 'react';
-import { login } from '../auth';
-import { useNavigate } from 'react-router-dom';
-
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-  const navigate = useNavigate();
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await login(email, password, rememberMe);
-      navigate('/dashboard');
-    } catch (err) {
-      alert('Login failed');
-      console.error(err);
-    }
-  };
-/*import { useState } from 'react';
 import authApi from '../../api'; 
 
 import { useNavigate } from 'react-router-dom';
@@ -44,12 +24,12 @@ export default function Login() {
     }
   };
 */
- /*   const response = await authApi.post('/auth/login', {
+    const response = await authApi.post('/auth/login', {
       email,
       password,
       rememberMe,
     });
-
+    console.log("Login response:", response.data); // ✅ Log for debugging
     // STEP 1: Store the JWT
     const { token } = response.data;
     localStorage.setItem('token', token); // 👈 Save token
@@ -58,9 +38,15 @@ export default function Login() {
     navigate('/dashboard'); // or wherever your main page is
 
   } catch (err) {
-    alert('Login failed');
+    console.error("Login error:", err); // ✅ Log the actual error
+
+    if (err.response && err.response.data && err.response.data.error) {
+      alert(`Login failed: ${err.response.data.error}`);
+    } else {
+      alert('Login failed: unexpected error');
+    }
   }
-};*/
+};
   return (
     <form onSubmit={handleLogin}>
       <h2>Login</h2>
