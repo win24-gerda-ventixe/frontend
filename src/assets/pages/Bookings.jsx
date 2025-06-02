@@ -43,7 +43,7 @@ const Bookings = () => {
             price,
             amount: price * b.seats,
             voucher: `${b.id.slice(0, 6)}-${category.toUpperCase()}`,
-            fullName: `${b.bookingOwner?.firstName || ''} ${b.bookingOwner?.lastName || ''}`.trim(),
+            fullName: `${b.firstName || ''} ${b.lastName || ''}`.trim(),
           };
         });
 
