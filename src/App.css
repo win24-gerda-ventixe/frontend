@@ -1061,6 +1061,7 @@ form p {
 .bookings-table thead {
   background-color: #f9f9f9;
   font-weight: 600;
+  color: var(--gray-70);
 }
 
 .badge {

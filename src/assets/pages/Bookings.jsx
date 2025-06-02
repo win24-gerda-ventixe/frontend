@@ -10,54 +10,42 @@ const Bookings = () => {
       try {
         const token = localStorage.getItem('token');
 
-        const res = await fetch('https://ventixe-gerda-webapp2.azurewebsites.net/api/booking', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        // Fetch all bookings
+        const bookingRes = await fetch('https://ventixe-gerda-webapp2.azurewebsites.net/api/booking', {
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("Booking fetch status:", res.status);
-        if (res.status === 403) throw new Error("You are not authorized to view bookings.");
-        if (!res.ok) {
-          const errorText = await res.text();
+        if (bookingRes.status === 403) throw new Error("You are not authorized to view bookings.");
+        if (!bookingRes.ok) {
+          const errorText = await bookingRes.text();
           console.error("Raw error response:", errorText);
           throw new Error('Failed to fetch bookings');
         }
 
-        const bookingData = await res.json();
+        const bookingData = await bookingRes.json();
         const bookingsRaw = Array.isArray(bookingData.result) ? bookingData.result : [];
 
-        const enriched = await Promise.all(
-          bookingsRaw.map(async (b) => {
-            try {
-              const eventRes = await fetch(`https://ventixe-gerda-webapp.azurewebsites.net/api/events/${b.eventId}`);
-              const event = await eventRes.json();
+        // Fetch all events at once
+        const eventRes = await fetch('https://ventixe-gerda-webapp.azurewebsites.net/api/events');
+        const eventData = await eventRes.json();
+        const events = Array.isArray(eventData.result) ? eventData.result : [];
 
-              const category = event.category || '-';
-              const price = parseFloat(event.price) || 0;
+        // Combine booking and event data
+        const enriched = bookingsRaw.map((b) => {
+          const event = events.find(e => e.id === b.eventId);
+          const category = event?.category || '-';
+          const price = parseFloat(event?.price) || 0;
 
-              return {
-                ...b,
-                eventTitle: event.title || 'Untitled',
-                category,
-                price,
-                amount: price * b.seats,
-                voucher: `${b.id.slice(0, 6)}-${category.toUpperCase()}`,
-                fullName: `${b.bookingOwner?.firstName || ''} ${b.bookingOwner?.lastName || ''}`.trim(),
-              };
-            } catch {
-              return {
-                ...b,
-                eventTitle: 'Unknown',
-                category: '-',
-                price: 0,
-                amount: 0,
-                voucher: `${b.id.slice(0, 6)}-UNKNOWN`,
-                fullName: `${b.bookingOwner?.firstName || ''} ${b.bookingOwner?.lastName || ''}`.trim(),
-              };
-            }
-          })
-        );
+          return {
+            ...b,
+            eventTitle: event?.title || 'Untitled',
+            category,
+            price,
+            amount: price * b.seats,
+            voucher: `${b.id.slice(0, 6)}-${category.toUpperCase()}`,
+            fullName: `${b.bookingOwner?.firstName || ''} ${b.bookingOwner?.lastName || ''}`.trim(),
+          };
+        });
 
         setBookings(enriched);
       } catch (err) {
@@ -98,9 +86,9 @@ const Bookings = () => {
               <td>
                 <span className={`badge ${b.category?.toLowerCase()}`}>{b.category}</span>
               </td>
-              <td>${b.price}</td>
+              <td>${b.price.toFixed(2)}</td>
               <td>{b.seats}</td>
-              <td>${b.amount}</td>
+              <td>${b.amount.toFixed(2)}</td>
               <td>{b.voucher}</td>
             </tr>
           ))}
