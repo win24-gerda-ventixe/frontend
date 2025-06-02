@@ -33,11 +33,16 @@ const handleSubmit = async (e) => {
   console.log("JSON stringified:", JSON.stringify(formData));
 
   try {
-    const res = await fetch("https://ventixe-gerda-webapp2.azurewebsites.net/api/booking", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    });
+const token = localStorage.getItem('token');
+
+const res = await fetch("https://ventixe-gerda-webapp2.azurewebsites.net/api/booking", {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}` // 🔐 Add this line
+  },
+  body: JSON.stringify(formData)
+});
 
     if (res.ok) {
       setSuccess(true);
