@@ -31,7 +31,7 @@ const Bookings = () => {
         const enriched = await Promise.all(
           bookingsRaw.map(async (b) => {
             try {
-              const eventRes = await fetch(`https://ventixe-gerda-webapp2.azurewebsites.net/api/event/${b.eventId}`);
+              const eventRes = await fetch(`https://ventixe-gerda-webapp.azurewebsites.net/api/events/${id}`);
               const event = await eventRes.json();
 
               return {
