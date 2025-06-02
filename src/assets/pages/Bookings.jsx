@@ -30,7 +30,8 @@ const Bookings = () => {
       }
 
       const data = await res.json();
-      setBookings(data);
+      console.log("Fetched bookings:", data); // Add this
+      setBookings(Array.isArray(data) ? data : data.result || []);
     } catch (err) {
       setError(err.message);
     } finally {
