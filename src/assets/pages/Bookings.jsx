@@ -27,19 +27,23 @@ const Bookings = () => {
         const bookingData = await res.json();
         const bookingsRaw = Array.isArray(bookingData.result) ? bookingData.result : [];
 
-        // Fetch related event info for each booking
         const enriched = await Promise.all(
           bookingsRaw.map(async (b) => {
             try {
               const eventRes = await fetch(`https://ventixe-gerda-webapp.azurewebsites.net/api/events/${b.eventId}`);
               const event = await eventRes.json();
 
+              const category = event.category || '-';
+              const price = parseFloat(event.price) || 0;
+
               return {
                 ...b,
-                eventTitle: event.title,
-                category: event.category,
-                price: event.price,
-                amount: event.price * b.seats,
+                eventTitle: event.title || 'Untitled',
+                category,
+                price,
+                amount: price * b.seats,
+                voucher: `${b.id.slice(0, 6)}-${category.toUpperCase()}`,
+                fullName: `${b.bookingOwner?.firstName || ''} ${b.bookingOwner?.lastName || ''}`.trim(),
               };
             } catch {
               return {
@@ -48,6 +52,8 @@ const Bookings = () => {
                 category: '-',
                 price: 0,
                 amount: 0,
+                voucher: `${b.id.slice(0, 6)}-UNKNOWN`,
+                fullName: `${b.bookingOwner?.firstName || ''} ${b.bookingOwner?.lastName || ''}`.trim(),
               };
             }
           })
@@ -74,17 +80,20 @@ const Bookings = () => {
         <thead>
           <tr>
             <th>Date</th>
+            <th>Name</th>
             <th>Event</th>
-            <th>Category</th>
+            <th>Ticket Category</th>
             <th>Price</th>
             <th>Qty</th>
             <th>Amount</th>
+            <th>E-Voucher</th>
           </tr>
         </thead>
         <tbody>
           {bookings.map((b) => (
             <tr key={b.id}>
               <td>{new Date(b.createdAt).toLocaleString('sv-SE')}</td>
+              <td>{b.fullName || '-'}</td>
               <td>{b.eventTitle}</td>
               <td>
                 <span className={`badge ${b.category?.toLowerCase()}`}>{b.category}</span>
@@ -92,6 +101,7 @@ const Bookings = () => {
               <td>${b.price}</td>
               <td>{b.seats}</td>
               <td>${b.amount}</td>
+              <td>{b.voucher}</td>
             </tr>
           ))}
         </tbody>
