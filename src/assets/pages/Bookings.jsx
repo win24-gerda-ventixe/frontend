@@ -48,30 +48,29 @@ const Bookings = () => {
   return (
     <div>
       <h1>Bookings</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Invoice ID</th>
-            <th>Name</th>
-            <th>Event</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.map((b) => (
-            <tr key={b.id}>
-              <td>{b.invoiceId}</td>
-              <td>{b.fullName}</td>
-              <td>{b.eventTitle}</td>
-              <td>{b.ticketQuantity}</td>
-              <td>${b.totalPrice}</td>
-              <td>{b.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Event ID</th>
+      <th>User ID</th>
+      <th>Seats</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    {bookings.map((b) => (
+      <tr key={b.id}>
+        <td>{b.id}</td>
+        <td>{b.eventId}</td>
+        <td>{b.userId}</td>
+        <td>{b.seats}</td>
+        <td>{new Date(b.createdAt).toLocaleString()}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
     </div>
   );
 };
