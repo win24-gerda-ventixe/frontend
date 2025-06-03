@@ -39,7 +39,7 @@ const res = await fetch("https://ventixe-gerda-webapp2.azurewebsites.net/api/boo
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}` // 🔐 Add this line
+    'Authorization': `Bearer ${token}` 
   },
   body: JSON.stringify(formData)
 });

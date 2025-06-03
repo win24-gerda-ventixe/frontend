@@ -3,6 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import BookEventForm from '../components/BookEventForm';
 import Modal from '../components/Modal';
 
+import { getUser } from '../../auth';
+import UpdateEventForm from '../components/UpdateEventForm';
+
+
 const EventDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate(); 
@@ -14,6 +18,11 @@ const EventDetails = () => {
   const [packages, setPackages] = useState([]);
 
   const isAuthenticated = localStorage.getItem("token") !== null;
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const user = getUser();
+  const isAdmin = user?.role === 'Admin';
+
 
 
 
@@ -59,6 +68,31 @@ const eventTime = new Date(event.time);
 const combinedDateTime = new Date(
   eventDate.toISOString().split("T")[0] + "T" + eventTime.toTimeString().split(" ")[0]
 );
+
+const handleDelete = async () => {
+  if (window.confirm("Are you sure you want to delete this event?")) {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`https://ventixe-gerda-webapp.azurewebsites.net/api/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (res.ok) {
+        navigate('/events');
+      } else {
+        const errorText = await res.text();
+        alert("Delete failed:\n" + errorText);
+      }
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("An error occurred while deleting.");
+    }
+  }
+};
+
 
 return (
   <div className="event-details-container">
@@ -106,6 +140,19 @@ return (
           </p>
         )}
 
+        {isAdmin && (
+          <>
+            <button onClick={() => setShowEditModal(true)} className="admin-btn update">
+              Update Event
+            </button>
+            <button onClick={handleDelete} className="admin-btn delete">
+              Delete Event
+            </button>
+          </>
+        )}
+        
+
+
       </div>
     </div>
 
@@ -136,7 +183,21 @@ return (
           onClose={() => setShowModal(false)}
         />
       </Modal>
+      
     )}
+    {showEditModal && (
+  <Modal onClose={() => setShowEditModal(false)}>
+    <UpdateEventForm
+      event={event}
+      onClose={() => setShowEditModal(false)}
+      onUpdated={() => {
+        setShowEditModal(false);
+        fetchEvent(); // Re-fetch the updated event
+      }}
+    />
+  </Modal>
+)}
+
   </div>
 );
 

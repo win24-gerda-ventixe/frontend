@@ -461,7 +461,6 @@ footer {
 }
 
 .event-card.modern {
-  position: relative;
   background: var(--background-color);
   border-radius: 12px;
   height: 346px;
@@ -1161,18 +1160,4 @@ form p {
   color: var(--primary-100);
 }
 /* ----------- Finish ----------- */
-.edit-icon-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 1.2rem;
-  color: #555;
-  cursor: pointer;
-  z-index: 10;
-}
 
-.edit-icon-button:hover {
-  color: #007bff;
-}
