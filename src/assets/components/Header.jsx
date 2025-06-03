@@ -47,7 +47,6 @@ const Header = ({ onToggleMenu }) => {
         <img src={logo} alt="Logo" className="logo-mobile" />
       </div>
       <div className="header-left">
-        {/* Hamburger for mobile */}
         <button className="hamburger-menu" onClick={onToggleMenu} aria-label="Toggle Menu">
           <i className="fa-solid fa-bars"></i>
         </button>

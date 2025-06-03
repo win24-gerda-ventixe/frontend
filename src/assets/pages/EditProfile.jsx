@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { getUser } from '../../auth'; 
+import profileApi from '../../profileApi';
 
 const EditProfile = () => {
-  const user = getUser();
-
   const [form, setForm] = useState({
     name: '',
     surname: '',
@@ -17,16 +14,9 @@ const EditProfile = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get(`https://ventixe-gerda-webapp3.azurewebsites.net/api/auth/profile`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    }).then(res => {
-      setForm(res.data);
-    }).catch(() => {
-      setMessage("Failed to load profile.");
-    });
-    console.log("JWT:", localStorage.getItem("token"));
+    profileApi.getProfile()
+      .then(res => setForm(res.data))
+      .catch(() => setMessage('Failed to load profile.'));
   }, []);
 
   const handleChange = (e) => {
@@ -35,17 +25,8 @@ const EditProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-await axios.put("https://ventixe-gerda-webapp3.azurewebsites.net/api/auth/profile", form, {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-    'Content-Type': 'application/json'
-  }
-});
-
-
-
+      await profileApi.updateProfile(form);
       setMessage('Profile updated!');
     } catch (err) {
       setMessage('Failed to update profile.');
