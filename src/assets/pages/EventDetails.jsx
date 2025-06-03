@@ -142,10 +142,10 @@ return (
 
         {isAdmin && (
           <>
-            <button onClick={() => setShowEditModal(true)} className="admin-btn update">
+            <button onClick={() => setShowEditModal(true)} className="book-event-btn">
               Update Event
             </button>
-            <button onClick={handleDelete} className="admin-btn delete">
+            <button onClick={handleDelete} className="book-event-btn">
               Delete Event
             </button>
           </>
