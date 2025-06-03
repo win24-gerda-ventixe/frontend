@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
 import EventToolbar from '../components/EventToolbar';
 import AddEventForm from '../components/AddEventForm';
-import EditEventForm from '../components/UpdateEventForm';
+import UpdateEventForm from '../components/UpdateEventForm';
 import Modal from '../components/Modal';
 import { getUser } from '../../auth';
 
@@ -41,7 +41,7 @@ const Events = () => {
 
       {selectedEvent && (
         <Modal onClose={() => setSelectedEvent(null)}>
-          <EditEventForm
+          <UpdateEventForm
             event={selectedEvent}
             onClose={() => setSelectedEvent(null)}
             onUpdated={getEvents}
