@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import authApi from '../../api';
+import eventApi from '../../eventApi';
 
 const UpdateEventForm = ({ event, onClose, onUpdated }) => {
   const [form, setForm] = useState(event);
@@ -12,7 +12,7 @@ const UpdateEventForm = ({ event, onClose, onUpdated }) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await authApi.put(`/events/${event.id}`, form);
+      await eventApi.put(`/events/${event.id}`, form);
       setMessage('Event updated!');
       onUpdated();
       onClose();
@@ -23,7 +23,7 @@ const UpdateEventForm = ({ event, onClose, onUpdated }) => {
 
   const handleDelete = async () => {
     try {
-      await authApi.delete(`/events/${event.id}`);
+      await eventApi.delete(`/events/${event.id}`);
       setMessage('Event deleted!');
       onUpdated();
       onClose();
