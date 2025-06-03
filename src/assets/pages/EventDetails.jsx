@@ -13,13 +13,12 @@ const EventDetails = () => {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [packages, setPackages] = useState([]);
+  // const [packages, setPackages] = useState([]); //
 
   const isAuthenticated = localStorage.getItem("token") !== null;
   const user = getUser();
   const isAdmin = user?.role === 'Admin';
 
-  // MOVED OUTSIDE useEffect so it can be reused
   const fetchEvent = async () => {
     try {
       const res = await fetch(`https://ventixe-gerda-webapp.azurewebsites.net/api/events/${id}`);
@@ -34,6 +33,7 @@ const EventDetails = () => {
     }
   };
 
+  /*
   const fetchPackages = async () => {
     try {
       const res = await fetch(`https://localhost:7097/api/events/${id}/packages`);
@@ -45,10 +45,11 @@ const EventDetails = () => {
       console.error("Package fetch error:", err);
     }
   };
+  */
 
   useEffect(() => {
     fetchEvent();
-    fetchPackages();
+    // fetchPackages(); // 
   }, [id]);
 
   const handleDelete = async () => {
@@ -144,22 +145,14 @@ const EventDetails = () => {
         </div>
       </div>
 
+      {/* Package section only for aesthetics */}
       <div className="event-packages">
         <div className="packages-header">
           <h3>Packages</h3>
           <i className="fa-solid fa-ellipsis"></i>
         </div>
-        {packages.length > 0 ? (
-          packages.map(pkg => (
-            <div key={pkg.id} className="package-card">
-              <h4>{pkg.title}</h4>
-              <p>{pkg.seatingArrangment} • {pkg.placement}</p>
-              <p className="price">${pkg.price?.toFixed(2)}</p>
-            </div>
-          ))
-        ) : (
-          <p>No packages available.</p>
-        )}
+        {/* Static dummy UI */}
+        <p>No packages available.</p>
       </div>
 
       {/* Booking Modal */}
