@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
 import EventToolbar from '../components/EventToolbar';
 import AddEventForm from '../components/AddEventForm';
-import EditEventForm from '../components/EditEventForm';
+import EditEventForm from '../components/UpdateEventForm';
 import Modal from '../components/Modal';
-import { getUser } from '../auth';
+import { getUser } from '../../auth';
 
 const Events = () => {
   const [events, setEvents] = useState([]);

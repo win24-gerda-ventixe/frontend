@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import authApi from '../api';
+import authApi from '../../api';
 
 const EditEventForm = ({ event, onClose, onUpdated }) => {
   const [form, setForm] = useState(event);
@@ -126,4 +126,4 @@ const EditEventForm = ({ event, onClose, onUpdated }) => {
   );
 };
 
-export default EditEventForm;
+export default UpdateEventForm;
