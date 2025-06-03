@@ -5,28 +5,31 @@ const EventCard = ({ event, onEdit }) => {
   if (!event) return null;
 
   return (
-<div className="event-card modern">
-      <div className="event-image-wrapper">
-    <div className="event-header">
-    {onEdit && (
-      <button onClick={onEdit} className="edit-icon-button" title="Edit event">
-        <i className="fa-solid fa-ellipsis"></i>
-      </button>
-    )}
-  </div>
-    <div className="event-image-placeholder"></div>
+    <div className="event-card modern" style={{ position: 'relative' }}>
+      {onEdit && (
+        <button
+          onClick={(e) => {
+            e.preventDefault(); // prevent link navigation
+            e.stopPropagation(); // prevent parent click
+            onEdit();
+          }}
+          className="edit-icon-button"
+          title="Edit event"
+        >
+          <i className="fa-solid fa-ellipsis"></i>
+        </button>
+      )}
 
-
-  </div>
-
-  <div className="event-info">
-    <p>{new Date(event.eventDate).toLocaleDateString()} — {new Date(event.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-    <h3 className="event-title">{event.title}</h3>
-    <p className="event-location"><i className="fa-solid fa-location-dot"></i> {event.location}</p>
-    <p className="event-price">{event.price} €</p>
-  </div>
-</div>
-
+      <Link to={`/events/${event.id}`}>
+        <h3>{event.title}</h3>
+        <p><strong>Location:</strong> {event.location}</p>
+        <p><strong>Price:</strong> {event.price} €</p>
+        <p><strong>Date:</strong> {new Date(event.eventDate).toLocaleDateString()}</p>
+        <p><strong>Time:</strong> {new Date(event.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+        <p><strong>Category:</strong> {event.category}</p>
+        <p><strong>Status:</strong> {event.status}</p>
+      </Link>
+    </div>
   );
 };
 

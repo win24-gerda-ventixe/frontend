@@ -1161,24 +1161,18 @@ form p {
   color: var(--primary-100);
 }
 /* ----------- Finish ----------- */
-
 .edit-icon-button {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  background: white;
+  top: 10px;
+  right: 10px;
+  background: transparent;
   border: none;
-  border-radius: 50%;
-  padding: 6px;
-  font-size: 1rem;
-  color: var(--gray-80);
+  font-size: 1.2rem;
+  color: #555;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  z-index: 1;
+  z-index: 10;
 }
 
 .edit-icon-button:hover {
-  color: var(--primary-100);
-  background: var(--gray-10);
+  color: #007bff;
 }
-
