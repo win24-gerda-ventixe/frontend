@@ -1,82 +1,86 @@
 import { useState } from 'react';
 import authApi from '../../api'; 
-
 import { useNavigate } from 'react-router-dom';
+
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false); 
+  const [rememberMe, setRememberMe] = useState(false);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setMessage('');
+    setError('');
+
     try {
-/*    await authApi.post('/auth/login', {
+      const response = await authApi.post('/auth/login', {
         email,
         password,
-        rememberMe, 
+        rememberMe,
       });
-      alert('Logged in!');
+
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+
+      setMessage('Login successful!');
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
     } catch (err) {
-      alert('Login failed');
+      console.error('Login error:', err);
+
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError('Login failed. Please try again.');
+      }
     }
   };
-*/
-    const response = await authApi.post('/auth/login', {
-      email,
-      password,
-      rememberMe,
-    });
-    console.log("Login response:", response.data); // ✅ Log for debugging
-    // STEP 1: Store the JWT
-    const { token } = response.data;
-    localStorage.setItem('token', token); // 👈 Save token
 
-    // STEP 2: Redirect to dashboard
-    navigate('/dashboard'); // or wherever your main page is
-
-  } catch (err) {
-    console.error("Login error:", err); // ✅ Log the actual error
-
-    if (err.response && err.response.data && err.response.data.error) {
-      alert(`Login failed: ${err.response.data.error}`);
-    } else {
-      alert('Login failed: unexpected error');
-    }
-  }
-};
   return (
-    <form onSubmit={handleLogin}>
+    <form className="signup-form" onSubmit={handleLogin}>
       <h2>Login</h2>
 
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-
-      <label>
+      <div className="form-group">
         <input
-          type="checkbox"
-          checked={rememberMe}
-          onChange={(e) => setRememberMe(e.target.checked)}
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
-        Remember Me
-      </label>
+      </div>
 
-      <button type="submit">Log In</button>
+      <div className="form-group">
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className="form-group checkbox-group">
+        <label>
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+          />
+          Remember Me
+        </label>
+      </div>
+
+      <button type="submit" className="submit-button">Log In</button>
+
+      {message && <p className="form-message success">{message}</p>}
+      {error && <p className="form-message error">{error}</p>}
     </form>
   );
 }
