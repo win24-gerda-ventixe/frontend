@@ -25,32 +25,27 @@ const handleChange = (e) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // Combine eventDate and time into a full ISO datetime string for the "Time" field
-  const fullDateTime = `${formData.eventDate}T${formData.time}:00`;
-
   const payload = {
     ...formData,
-    time: fullDateTime
+    eventDate: `${formData.eventDate}T00:00:00`,
+    time: `${formData.eventDate}T${formData.time}:00`
   };
-
-  console.log("Submitting full payload:", payload);
-  console.log("JSON stringified:", JSON.stringify(payload));
 
   try {
     const res = await fetch('https://ventixe-gerda-webapp.azurewebsites.net/api/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(payload)
     });
 
     if (res.ok) {
-      onCreated(); // refresh the list
-      onClose();   // close the form
+      onCreated();
+      onClose();
     } else {
-      const errorText = await res.text(); 
+      const errorText = await res.text();
       console.error("Failed to create event:", errorText);
       alert('Failed to create event:\n' + errorText);
     }

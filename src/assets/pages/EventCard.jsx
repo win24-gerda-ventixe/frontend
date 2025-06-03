@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Link } from 'react-router-dom'
 
 const EventCard = ({ event }) => {
@@ -17,4 +17,4 @@ const EventCard = ({ event }) => {
   );
 };
 
-export default EventCard;
+export default EventCard;*/
