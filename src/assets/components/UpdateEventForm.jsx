@@ -9,17 +9,32 @@ const UpdateEventForm = ({ event, onClose, onUpdated }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      await eventApi.put(`/events/${event.id}`, form);
-      setMessage('Event updated!');
-      onUpdated();
-      onClose();
-    } catch (err) {
-      setMessage('Failed to update event.');
-    }
-  };
+const handleUpdate = async (e) => {
+  e.preventDefault();
+
+  try {
+    const { eventDate, time, ...rest } = form;
+
+    // Ensure time is in HH:mm:ss format
+    const fullTime = time.length === 5 ? `${time}:00` : time;
+
+    // Format fields to match C# DateTime expectations
+    const updatedForm = {
+      ...rest,
+      eventDate: `${eventDate}T00:00:00`,
+      time: `${eventDate}T${fullTime}`,
+    };
+
+    await eventApi.put(`/events/${event.id}`, updatedForm);
+    setMessage('Event updated!');
+    onUpdated();
+    onClose();
+  } catch (err) {
+    console.error(err);
+    setMessage('Failed to update event.');
+  }
+};
+
 
   const handleDelete = async () => {
     try {
