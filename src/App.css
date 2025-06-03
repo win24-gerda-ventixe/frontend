@@ -1068,7 +1068,7 @@ form p {
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 12px;
-  background-color: #eee;
+  background-color: var(--background-color);
   display: inline-block;
 }
 
@@ -1076,3 +1076,10 @@ form p {
 .badge.fashion { background-color: #fce7f3; color: #9d174d; }
 .badge.wellness { background-color: #f0fdf4; color: #15803d; }
 /* ----------- Finish ----------- */
+
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
