@@ -17,7 +17,7 @@ const EditProfile = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get(`https://ventixe-gerda-webapp3.azurewebsites.net/api`, {
+    axios.get(`https://ventixe-gerda-webapp3.azurewebsites.net/api/auth/profile`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -37,7 +37,7 @@ const EditProfile = () => {
     e.preventDefault();
 
     try {
-await axios.put("https://ventixe-gerda-webapp3.azurewebsites.net/api", form, {
+await axios.put("https://ventixe-gerda-webapp3.azurewebsites.net/api/auth/profile", form, {
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
     'Content-Type': 'application/json'
