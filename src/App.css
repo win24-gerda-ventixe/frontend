@@ -633,6 +633,7 @@ footer {
 /* ----------- Book Event buuton styling ----------- */
 .book-event-btn {
   margin-top: 20px;
+  margin-right: 15px;
   padding: 10px 20px;
   background-color: var(--primary-90);
   color: white;

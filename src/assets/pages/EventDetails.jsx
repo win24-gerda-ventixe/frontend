@@ -40,6 +40,9 @@ const EventDetails = () => {
         setLoading(false);
       }
     };
+    useEffect(() => {
+      fetchEvent();
+      }, [id]);
 
 
         const fetchPackages = async () => {
@@ -192,7 +195,7 @@ return (
       onClose={() => setShowEditModal(false)}
       onUpdated={() => {
         setShowEditModal(false);
-        fetchEvent(); // Re-fetch the updated event
+
       }}
     />
   </Modal>

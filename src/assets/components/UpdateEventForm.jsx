@@ -82,7 +82,7 @@ const UpdateEventForm = ({ event, onClose, onUpdated }) => {
   <input
     type="time"
     name="time"
-    value={form.time || ''}
+    value={form.time?.slice(11, 16) || ''}
     onChange={handleChange}
     placeholder="Time"
     required

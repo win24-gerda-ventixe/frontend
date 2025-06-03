@@ -50,7 +50,7 @@ const handleSubmit = async (e) => {
       onCreated(); // refresh the list
       onClose();   // close the form
     } else {
-      const errorText = await res.text(); // Log backend error response
+      const errorText = await res.text(); 
       console.error("Failed to create event:", errorText);
       alert('Failed to create event:\n' + errorText);
     }
