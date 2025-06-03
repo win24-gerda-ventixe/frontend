@@ -15,15 +15,15 @@ const handleUpdate = async (e) => {
   try {
     const { eventDate, time, ...rest } = form;
 
-    // Ensure time is in HH:mm:ss format
     const fullTime = time.length === 5 ? `${time}:00` : time;
 
-    // Format fields to match C# DateTime expectations
     const updatedForm = {
       ...rest,
-      eventDate: `${eventDate}T00:00:00`,
-      time: `${eventDate}T${fullTime}`,
+      eventDate: `${eventDate}T00:00:00`, // single T
+      time: `${eventDate}T${fullTime}`    // properly combined
     };
+
+    console.log("Sending to backend:", updatedForm);
 
     await eventApi.put(`/events/${event.id}`, updatedForm);
     setMessage('Event updated!');
@@ -34,6 +34,7 @@ const handleUpdate = async (e) => {
     setMessage('Failed to update event.');
   }
 };
+
 
 
   const handleDelete = async () => {

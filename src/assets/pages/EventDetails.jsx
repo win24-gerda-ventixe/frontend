@@ -130,7 +130,7 @@ const EventDetails = () => {
             </p>
           )}
 
-          {isAdmin && (
+          {isAdmin && (Fu
             <>
               <button onClick={() => setShowEditModal(true)} className="book-event-btn">
                 Update Event
