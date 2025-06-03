@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import authApi from '../../api';
 
-const EditEventForm = ({ event, onClose, onUpdated }) => {
+const UpdateEventForm = ({ event, onClose, onUpdated }) => {
   const [form, setForm] = useState(event);
   const [message, setMessage] = useState('');
 
