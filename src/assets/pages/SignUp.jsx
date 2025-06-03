@@ -27,14 +27,9 @@ const SignUp = () => {
     try {
       const response = await authApi.post('/auth/register', form);
       setMessage(response.data.message || 'Registration successful!');
-
-      // Optional: Redirect to login page after a short delay
-      setTimeout(() => {
-        window.location.href = '/login';
-      }, 2000);
+      setTimeout(() => (window.location.href = '/login'), 2000);
     } catch (error) {
-      const apiMessage =
-        error.response?.data?.message || 'Registration failed.';
+      const apiMessage = error.response?.data?.message || 'Registration failed.';
       const apiErrors = error.response?.data?.errors || {};
       setMessage(apiMessage);
       setErrors(apiErrors);
@@ -42,70 +37,51 @@ const SignUp = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="signup-form" onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
 
-      <input
-        type="text"
-        name="name"
-        placeholder="First Name"
-        value={form.name}
-        onChange={handleChange}
-      />
-      {errors.Name && <p className="error">{errors.Name[0]}</p>}
+      <div className="form-group">
+        <input type="text" name="name" placeholder="First Name" value={form.name} onChange={handleChange} />
+        {errors.Name && <span className="error">{errors.Name[0]}</span>}
+      </div>
 
-      <input
-        type="text"
-        name="surname"
-        placeholder="Last Name"
-        value={form.surname}
-        onChange={handleChange}
-      />
-      {errors.Surname && <p className="error">{errors.Surname[0]}</p>}
+      <div className="form-group">
+        <input type="text" name="surname" placeholder="Last Name" value={form.surname} onChange={handleChange} />
+        {errors.Surname && <span className="error">{errors.Surname[0]}</span>}
+      </div>
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-      />
-      {errors.Email && <p className="error">{errors.Email[0]}</p>}
+      <div className="form-group">
+        <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} />
+        {errors.Email && <span className="error">{errors.Email[0]}</span>}
+      </div>
 
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={handleChange}
-      />
-      {errors.Password && <p className="error">{errors.Password[0]}</p>}
+      <div className="form-group">
+        <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} />
+        {errors.Password && <span className="error">{errors.Password[0]}</span>}
+      </div>
 
-      <input
-        type="password"
-        name="confirmPassword"
-        placeholder="Confirm Password"
-        value={form.confirmPassword}
-        onChange={handleChange}
-      />
-      {errors.ConfirmPassword && (
-        <p className="error">{errors.ConfirmPassword[0]}</p>
-      )}
-
-      <label>
+      <div className="form-group">
         <input
-          type="checkbox"
-          name="acceptTerms"
-          checked={form.acceptTerms}
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          value={form.confirmPassword}
           onChange={handleChange}
         />
-        I accept the Terms & Conditions
-      </label>
-      {errors.AcceptTerms && <p className="error">{errors.AcceptTerms[0]}</p>}
+        {errors.ConfirmPassword && <span className="error">{errors.ConfirmPassword[0]}</span>}
+      </div>
 
-      <button type="submit">Sign Up</button>
+      <div className="form-group checkbox-group">
+        <label>
+          <input type="checkbox" name="acceptTerms" checked={form.acceptTerms} onChange={handleChange} />
+          I accept the Terms & Conditions
+        </label>
+        {errors.AcceptTerms && <span className="error">{errors.AcceptTerms[0]}</span>}
+      </div>
 
-      {message && <p>{message}</p>}
+      <button type="submit" className="submit-button">Sign Up</button>
+
+      {message && <p className={`form-message ${message.includes('success') ? 'success' : 'error'}`}>{message}</p>}
     </form>
   );
 };

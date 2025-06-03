@@ -1077,9 +1077,86 @@ form p {
 .badge.wellness { background-color: #f0fdf4; color: #15803d; }
 /* ----------- Finish ----------- */
 
+/* ----------- Validation messages ----------- */
+.signup-form {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 2rem;
+  background: var(--card-background-color); 
+  border-radius: 10px;
+  font-family: var(--font); 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--headline-color);
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group input[type='text'],
+.form-group input[type='email'],
+.form-group input[type='password'] {
+  padding: 10px;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  border-color: var(--input-border-focus-color);
+  outline: none;
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
 
 .error {
-  color: red;
+  color: var(--primary-100);
   font-size: 0.85rem;
-  margin-top: 2px;
+  margin-top: 5px;
 }
+
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  background: var(--button-primary-background-color);
+  border: none;
+  border-radius: 5px;
+  color: var(--button-primary-text-color);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background: var(--button-primary-hover-background-color);
+}
+
+.form-message {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-message.success {
+  color: var(--primary-100);
+}
+
+.form-message.error {
+  color: var(--primary-100);
+}
+/* ----------- Finish ----------- */
