@@ -61,7 +61,6 @@ const Header = ({ onToggleMenu }) => {
           <h1 className="page-title">{current.title}</h1>
         </div>
 
-        {/* Optional: hide breadcrumb on small screens with CSS */}
         <div className="breadcrumb">
           {current.breadcrumb.map((item, index) => (
             <span key={index} className={index === 0 ? 'breadcrumb-link' : ''}>
