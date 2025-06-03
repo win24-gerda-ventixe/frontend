@@ -5,7 +5,8 @@ const EventCard = ({ event, onEdit }) => {
   if (!event) return null;
 
   return (
-    <div className="event-card">
+<div className="event-card modern">
+
       <Link to={`/events/${event.id}`}>
         <h3>{event.title}</h3>
         <p><strong>Location:</strong> {event.location}</p>
