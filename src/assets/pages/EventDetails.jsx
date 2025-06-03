@@ -130,16 +130,16 @@ const EventDetails = () => {
             </p>
           )}
 
-          {isAdmin && (Fu
-            <>
-              <button onClick={() => setShowEditModal(true)} className="book-event-btn">
-                Update Event
-              </button>
-              <button onClick={handleDelete} className="book-event-btn">
-                Delete Event
-              </button>
-            </>
-          )}
+      {isAdmin && (
+        <>
+          <button onClick={() => setShowEditModal(true)} className="book-event-btn">
+            Update Event
+          </button>
+          <button onClick={handleDelete} className="book-event-btn">
+            Delete Event
+          </button>
+        </>
+      )}
         </div>
       </div>
 

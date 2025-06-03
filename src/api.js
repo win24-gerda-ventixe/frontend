@@ -15,5 +15,12 @@ const authApi = axios.create({
     'Content-Type': 'application/json'
   }
 });
-
+// Inject token dynamically before each request
+authApi.interceptors.request.use(config => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 export default authApi;

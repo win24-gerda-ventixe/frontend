@@ -7,6 +7,7 @@ const eventApi = axios.create({
   }
 });
 
+// Token added dynamically before each request
 eventApi.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -14,5 +15,6 @@ eventApi.interceptors.request.use(config => {
   }
   return config;
 });
+
 
 export default eventApi;
