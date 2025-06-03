@@ -63,7 +63,6 @@ const combinedDateTime = new Date(
 return (
   <div className="event-details-container">
     
-    {/* LEFT COLUMN: Main Event Details */}
     <div className="event-details-wrapper">
       <div className="event-banner">
         {event.image && <img src={event.image} alt={event.title} />}
@@ -110,7 +109,6 @@ return (
       </div>
     </div>
 
-    {/* RIGHT COLUMN: Packages */}
     <div className="event-packages">
     <div className="packages-header">
       <h3>Packages</h3>

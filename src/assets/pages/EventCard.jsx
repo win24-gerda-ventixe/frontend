@@ -6,14 +6,17 @@ const EventCard = ({ event, onEdit }) => {
 
   return (
 <div className="event-card modern">
-  <div className="event-image-wrapper">
-    <div className="event-image-placeholder"></div>
-
+      <div className="event-image-wrapper">
+    <div className="event-header">
     {onEdit && (
       <button onClick={onEdit} className="edit-icon-button" title="Edit event">
         <i className="fa-solid fa-ellipsis"></i>
       </button>
     )}
+  </div>
+    <div className="event-image-placeholder"></div>
+
+
   </div>
 
   <div className="event-info">
