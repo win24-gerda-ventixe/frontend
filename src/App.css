@@ -1160,3 +1160,18 @@ form p {
   color: var(--primary-100);
 }
 /* ----------- Finish ----------- */
+
+.edit-icon-button {
+  background: transparent;
+  border: none;
+  color: var(--gray-80);
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.2rem;
+}
+
+.edit-icon-button:hover {
+  color: var(--primary-100);
+}

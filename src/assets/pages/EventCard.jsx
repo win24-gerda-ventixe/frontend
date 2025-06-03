@@ -17,7 +17,9 @@ const EventCard = ({ event, onEdit }) => {
       </Link>
 
       {onEdit && (
-        <button onClick={onEdit} className="edit-button">Edit</button>
+        <button onClick={onEdit} className="edit-icon-button" title="Edit event">
+          <i className="fa-solid fa-ellipsis"></i>
+        </button>
       )}
     </div>
   );
