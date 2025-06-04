@@ -1,72 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const AddEventForm = ({ onClose, onCreated }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    location: '',
+    title: "",
+    description: "",
+    location: "",
     price: 0,
-    eventDate: '',
-    time: '',
-    image: '',
-    category: '',
-    status: 'Draft'
+    eventDate: "",
+    time: "",
+    image: "",
+    category: "",
+    status: "Draft",
   });
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  setFormData(prev => ({
-    ...prev,
-    [name]: name === 'price' ? parseFloat(value) || 0 : value
-  }));
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const payload = {
-    ...formData,
-    eventDate: `${formData.eventDate}T00:00:00`,
-    time: `${formData.eventDate}T${formData.time}:00`
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "price" ? parseFloat(value) || 0 : value,
+    }));
   };
 
-  try {
-    const res = await fetch('https://ventixe-gerda-webapp.azurewebsites.net/api/events', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(payload)
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (res.ok) {
-      onCreated();
-      onClose();
-    } else {
-      const errorText = await res.text();
-      console.error("Failed to create event:", errorText);
-      alert('Failed to create event:\n' + errorText);
+    const payload = {
+      ...formData,
+      eventDate: `${formData.eventDate}T00:00:00`,
+      time: `${formData.eventDate}T${formData.time}:00`,
+    };
+
+    /*try {
+      const res = await fetch("https://localhost:7097/api/events/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      console.log(res);
+
+      if (res.ok) {
+        onCreated();
+        onClose();
+      } else {
+        const errorText = await res.text();
+        console.error("Failed to create event:", errorText);
+        alert("Failed to create event:\n" + errorText);
+      }
+    } catch (err) {
+      console.error("Network or server error:", err);
+    }*/
+
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(
+        "https://ventixe-gerda-webapp.azurewebsites.net/api/events/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (res.ok) {
+        onCreated();
+        onClose();
+      } else {
+        const errorText = await res.text();
+        console.error("Failed to create event:", errorText);
+        alert("Failed to create event:\n" + errorText);
+      }
+    } catch (err) {
+      console.error("Network or server error:", err);
     }
-  } catch (err) {
-    console.error("Network or server error:", err);
-  }
-};
+  };
 
   return (
     <div className="modal">
       <div className="modal-content">
         <h2>Create New Event</h2>
         <form onSubmit={handleSubmit}>
-          <input name="title" placeholder="Title" onChange={handleChange} required />
-          <input name="description" placeholder="Description" onChange={handleChange} />
-          <input name="location" placeholder="Location" onChange={handleChange} required />
-          <input name="price" type="number" placeholder="Price" onChange={handleChange} required />
-          <input name="eventDate" type="date" onChange={handleChange} required />
+          <input
+            name="title"
+            placeholder="Title"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="description"
+            placeholder="Description"
+            onChange={handleChange}
+          />
+          <input
+            name="location"
+            placeholder="Location"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="price"
+            type="number"
+            placeholder="Price"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="eventDate"
+            type="date"
+            onChange={handleChange}
+            required
+          />
           <input name="time" type="time" onChange={handleChange} required />
           <input name="image" placeholder="Image URL" onChange={handleChange} />
-          <input name="category" placeholder="Category" onChange={handleChange} />
+          <input
+            name="category"
+            placeholder="Category"
+            onChange={handleChange}
+          />
           <select name="status" onChange={handleChange}>
             <option value="Draft">Draft</option>
             <option value="Active">Active</option>
@@ -74,7 +130,9 @@ const handleSubmit = async (e) => {
           </select>
 
           <button type="submit">Save</button>
-          <button type="button" onClick={onClose}>Cancel</button>
+          <button type="button" onClick={onClose}>
+            Cancel
+          </button>
         </form>
       </div>
     </div>

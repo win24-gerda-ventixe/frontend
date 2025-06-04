@@ -15,14 +15,13 @@ const handleUpdate = async (e) => {
   try {
     const { eventDate, time, ...rest } = form;
 
-    // Clean date/time
     const cleanDate = eventDate.split('T')[0]; // e.g. "2025-08-18"
     const fullTime = time.length === 5 ? `${time}:00` : time; // e.g. "21:00:00"
 
     const updatedForm = {
       ...rest,
-      eventDate: `${cleanDate}T00:00:00`, // OK for eventDate
-      time: `${cleanDate}T${fullTime}`    // OK for time
+      eventDate: `${cleanDate}T00:00:00`, 
+      time: `${cleanDate}T${fullTime}`    
     };
 
     console.log("Sending to backend:", updatedForm);
