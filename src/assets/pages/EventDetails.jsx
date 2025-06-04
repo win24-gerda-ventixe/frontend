@@ -88,14 +88,16 @@ const EventDetails = () => {
     <div className="event-details-container">
       <div className="event-details-wrapper">
         <div className="event-banner">
-          {event.image && <img src={event.image} alt={event.title} />}
-          <div className="badges">
+              <div className="event-image-wrapper">
+            <div className="event-details-image-placeholder" />
+          <div className="event-card-badges">
+          <div className="event-card-badges">
             <span className="badge category">{event.category}</span>
             <span className={`badge status ${event.status.toLowerCase()}`}>{event.status}</span>
-            <div className="event-image-placeholder" />
           </div>
         </div>
-
+        </div>
+</div>
         <div className="event-info">
           <h1>{event.title}</h1>
           {combinedDateTime && (

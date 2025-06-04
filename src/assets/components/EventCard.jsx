@@ -20,25 +20,29 @@ const EventCard = ({ event }) => {
 
   return (
     <Link to={`/events/${event.id}`} className="event-card-link">
-      <div className="event-card modern">
-        <div className="event-image-wrapper"></div>
-        <div className="event-card-badges">
-          <span className="badge category">{event.category}</span>
-          <span className={`badge status ${event.status.toLowerCase()}`}>{event.status}</span>
-        </div>
+<div className="event-card modern">
+  <div className="event-image-wrapper">
+    <div className="event-card-badges">
+      <span className="badge category">{event.category}</span>
+      <span className={`badge status ${event.status.toLowerCase()}`}>{event.status}</span>
+    </div>
+    <div className="event-image-placeholder" />
+  </div>
 
-        <div className="event-image-placeholder" />
+  <div className="event-details">
+    <div className="event-datetime">{formattedDate} — {formattedTime}</div>
+    <h3 className="event-title">{event.title}</h3>
+    <div className="event-location">
+      <i
+        className="fa-solid fa-location-dot"
+        style={{ marginRight: '6px', color: '#6b7280' }}
+      ></i>
+      {event.location}
+    </div>
+    <div className="event-price">${event.price}</div>
+  </div>
+</div>
 
-        <div className="event-details">
-          <div className="event-datetime">{formattedDate} — {formattedTime}</div>
-          <h3 className="event-title">{event.title}</h3>
-        <div className="event-location">
-          <i className="fa-solid fa-location-dot" style={{ marginRight: '6px', color: '#6b7280' }}></i>
-          {event.location}
-        </div>
-        <div className="event-price">${event.price}</div>
-        </div>
-      </div>
     </Link>
   );
 };

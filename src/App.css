@@ -267,9 +267,9 @@ footer {
 .footer-content {
   display: flex;
   align-items: center;
-  flex-wrap: wrap; 
+  justify-content: space-between; /* optional */
+  flex-wrap: wrap;
   gap: 2rem;
-  font-size: 12px;
 }
 
 .footer-text{
@@ -282,8 +282,11 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-grow: 1;
   gap: 1rem;
+}
+.footer-media-content {
+  display: flex;
+    align-items: right;
 }
 
 .footer-text-links a {
@@ -463,7 +466,7 @@ footer {
 .event-card.modern {
   background: var(--background-color);
   border-radius: 12px;
-  height: 346px;
+  height: 365px;
   width: 274px;
   padding: 1rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -479,10 +482,14 @@ footer {
 
 .event-card-badges {
   position: absolute;
-  margin: 1.5rem;
+  top: 12px;
+  left: 12px;
+  right: 12px;
   display: flex;
-  gap: 1rem;
-  width: 100%;
+  justify-content: space-between;
+  width: calc(100% - 24px); 
+  pointer-events: none; 
+  z-index: 1;
 }
 
 .badge {
@@ -519,7 +526,7 @@ footer {
 }
 
 .event-info {
-  padding: 2rem;
+  padding: 0.5rem 2rem 0 2rem;
   background-color: var(--background-color);
   border-radius: 0px 0 16px 16px;
 }
@@ -529,10 +536,17 @@ footer {
 
 .event-image-placeholder {
   height: 209px;
-  background-color: #e5e7eb;
+  background-color: var(--gray-40);
   border-radius: 8px;
 }
-
+.event-details-image-placeholder {
+  width: 100%;
+  height: 351px;
+  object-fit: cover;
+  background-color: var(--gray-40);
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
 .event-datetime,
 .event-location {
   font-size: 0.85rem;
@@ -543,7 +557,8 @@ footer {
   font-size: 1.1rem;
   margin: 0.25rem 0;
   font-weight: 600;
-  color: #111827;
+  color: var(--gray-100);
+  padding: 0.5rem 0 0.5rem 0;
 }
 
 .event-price {
@@ -551,7 +566,8 @@ footer {
   font-weight: bold;
   color: var(--primary-90);
   text-align: right;
-  margin-top: 1.5rem; 
+  margin-top: 0.5rem; 
+
 }
 
 /* ----------- Finished ----------- */
@@ -882,7 +898,9 @@ form p {
   color: var(--primary-100);
   font-size: 1.1rem;
 }
-
+.login-warning {
+  padding-bottom: 2rem;
+}
 
 
 
@@ -1162,3 +1180,9 @@ form p {
 }
 /* ----------- Finish ----------- */
 
+.footer-media-content {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
