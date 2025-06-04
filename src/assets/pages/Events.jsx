@@ -31,7 +31,7 @@ const Events = () => {
 
   return (
     <div className="events-page">
-      {!isAdmin && <EventToolbar onAddClick={() => setShowForm(true)} />}
+      {isAdmin && <EventToolbar onAddClick={() => setShowForm(true)} />}
 
       {showForm && (
         <Modal onClose={() => setShowForm(false)}>
