@@ -23,6 +23,9 @@ const Nav = () => {
     logout();
     navigate('/login');
   };
+
+  const isLoggedIn = localStorage.getItem('token') !== null;
+
   return (
     <nav className="sidebar">
       <div className="logo">
@@ -86,11 +89,12 @@ const Nav = () => {
         </li>
 
       </ul>
-
+      {isLoggedIn && (
       <button className="signout-button" onClick={handleLogout}>
         <img src={logoutIcon} alt="Sign Out" className="button-icon" />
         <span>Sign Out</span>
       </button>
+      )}
     </nav>
   );
 };

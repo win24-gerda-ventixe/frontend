@@ -13,11 +13,18 @@ const EditProfile = () => {
 
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    profileApi.getProfile()
-      .then(res => setForm(res.data))
-      .catch(() => setMessage('Failed to load profile.'));
-  }, []);
+useEffect(() => {
+  profileApi.getProfile()
+    .then(res => {
+      console.log('Profile data:', res.data);
+      setForm(res.data);
+    })
+    .catch(err => {
+      console.error('Failed to load profile:', err);
+      setMessage('Failed to load profile.');
+    });
+}, []);
+
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

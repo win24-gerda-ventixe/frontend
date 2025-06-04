@@ -71,9 +71,11 @@ const Header = ({ onToggleMenu }) => {
       </div>
 
       <div className="header-right">
+        {loggedIn && (
         <NavLink to="/settings" className="settings-btn" aria-label="Settings">
           <i className="fa-solid fa-gear nav-icon"></i>
         </NavLink>
+        )}
         {loggedIn ? (
           <span className="user-info">Welcome, {user?.name || user?.email || "User"}!</span>
         ) : (
