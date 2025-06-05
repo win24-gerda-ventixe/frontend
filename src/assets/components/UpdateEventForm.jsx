@@ -15,13 +15,13 @@ const UpdateEventForm = ({ event, onClose, onUpdated }) => {
     try {
       const { eventDate, time, ...rest } = form;
 
-      const cleanDate = eventDate.split("T")[0]; // e.g. "2025-08-18"
-      const fullTime = time.length === 5 ? `${time}:00` : time; // e.g. "21:00:00"
+      const cleanDate = eventDate.split("T")[0]; 
+      const fullTime = time.length === 5 ? `${time}:00` : time; 
 
       const updatedForm = {
         ...rest,
         eventDate: `${cleanDate}T00:00:00`,
-        time: `${cleanDate}T${fullTime}`,
+        time: `${fullTime}`, 
       };
 
       console.log("Sending to backend:", updatedForm);
