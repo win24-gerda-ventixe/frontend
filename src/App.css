@@ -968,7 +968,7 @@ form p {
 
 /* ----------- (Mobile) ----------- */
 @media (max-width: 767px) {
-  /* Sidebar */
+
   nav.sidebar {
     display: none;
     position: fixed;
@@ -988,7 +988,6 @@ form p {
     transform: translateX(0);
   }
 
-  /* Layout grid areas */
   .portal-wrapper {
     grid-template-areas: 
       "header"
@@ -996,8 +995,6 @@ form p {
       "footer";
     grid-template-columns: 1fr;
   }
-
-  /* Header adjustments */
   
   .header-right,
   .breadcrumb,
@@ -1006,15 +1003,15 @@ form p {
   }
 .header {
   display: flex;
-  align-items: center; /* Vertical alignment */
-  justify-content: center; /* Center all content horizontally */
+  align-items: center; 
+  justify-content: center; 
   position: relative;
   padding: 0.75rem 1rem;
   background-color: var(--cool-gray-10);
   width: 100%;
   max-width: 420px;
   margin: 0 auto;
-  height: 56px; /* optional for consistent vertical alignment */
+  height: 56px; 
 }
 
 .logo-mobile {
@@ -1029,7 +1026,6 @@ form p {
   height: 32px;
 }
 
-/* Center (title) */
 .page-title {
   font-size: 1.25rem;
   margin: 0;
@@ -1037,7 +1033,6 @@ form p {
   flex-shrink: 0;
 }
 
-/* Right (hamburger) */
 .hamburger-menu {
   position: absolute;
   right: 1rem;
@@ -1058,6 +1053,31 @@ form p {
   .search-controls{
     display: none;
   }
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  background-color: transparent;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;   /* Stack items vertically */
+  align-items: center;      /* Center horizontally */
+  justify-content: center;  /* Center vertically */
+  width: 100%;
+  max-width: 420px;
+  background-color: transparent;
+  text-align: center;
+}
+
+.footer-text-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
 
   
 }
