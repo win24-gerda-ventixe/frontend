@@ -20,10 +20,36 @@ const AddEventForm = ({ onClose, onCreated }) => {
       ...prev,
       [name]: name === "price" ? parseFloat(value) || 0 : value,
     }));
+
+    // Clear the error once the required fields are filled in
+    setValidationErrors((prev) => ({
+      ...prev,
+      [name]: undefined,
+    }));
   };
+
+
+  const [validationErrors, setValidationErrors] = useState({});
+
+const validate = () => {
+  const errors = {};
+  if (!formData.title.trim()) errors.title = "Title is required.";
+  if (!formData.location.trim()) errors.location = "Location is required.";
+  if (!formData.eventDate) errors.eventDate = "Event date is required.";
+  if (!formData.time) errors.time = "Time is required.";
+  if (formData.price < 0) errors.price = "Price cannot be negative.";
+  return errors;
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+   const errors = validate();
+      if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      return;
+  }
 
     const payload = {
       ...formData,
@@ -90,8 +116,8 @@ const AddEventForm = ({ onClose, onCreated }) => {
             name="title"
             placeholder="Title"
             onChange={handleChange}
-            required
           />
+          {validationErrors.title && <p className="error">{validationErrors.title}</p>}
           <input
             name="description"
             placeholder="Description"
@@ -101,22 +127,24 @@ const AddEventForm = ({ onClose, onCreated }) => {
             name="location"
             placeholder="Location"
             onChange={handleChange}
-            required
           />
+          {validationErrors.location && <p className="error">{validationErrors.location}</p>}
           <input
             name="price"
             type="number"
             placeholder="Price"
             onChange={handleChange}
-            required
           />
+          {validationErrors.price && <p className="error">{validationErrors.price}</p>}
           <input
             name="eventDate"
             type="date"
             onChange={handleChange}
-            required
           />
-          <input name="time" type="time" onChange={handleChange} required />
+          {validationErrors.eventDate && <p className="error">{validationErrors.eventDate}</p>}
+          <input name="time" type="time" onChange={handleChange} />
+          {validationErrors.time && <p className="error">{validationErrors.time}</p>}
+
           <input name="image" placeholder="Image URL" onChange={handleChange} />
           <input
             name="category"
